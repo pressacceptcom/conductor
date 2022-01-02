@@ -781,7 +781,7 @@ func test___init() -> void:
 
 	var conductable: PressAccept_Conductor_Conducted = \
 		PressAccept_Mixer_Mixer.instantiate(
-			'res://addons/PressAccept/Conductor/tests/Conducted.gd',
+			'res://addons/PressAccept/Conductor/test/Conducted.gd',
 			[],
 			true
 		)
@@ -789,7 +789,7 @@ func test___init() -> void:
 	assert_eq(conductable.a_property, 'default')
 
 	conductable = PressAccept_Mixer_Mixer.instantiate(
-		'res://addons/PressAccept/Conductor/tests/Conducted.gd',
+		'res://addons/PressAccept/Conductor/test/Conducted.gd',
 		[ 'input'],
 		true
 	)
