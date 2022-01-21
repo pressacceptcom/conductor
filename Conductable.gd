@@ -52,7 +52,7 @@ class_name PressAccept_Conductor_Conductable
 # | Changelog |
 # |-----------|
 #
-# 1.0.0    12/31/2021    First Release
+# 1.0.0    01/21/2022    First Release
 #
 
 # ***********
@@ -60,65 +60,68 @@ class_name PressAccept_Conductor_Conductable
 # ***********
 
 # fired on add_hook
-signal hook_added     (hook_identifier, hook_value, emitter)
+signal conductable_hook_added     (identifier, value, priority, emitter)
 
 # fired on hook
-signal hooked         (hook_identifier, args_arr, emitter)
+signal conductable_hooked         (identifier, args, emitter)
 
 # fired on remove_hook
-signal hook_removed   (hook_identifier, hook_value, emitter)
+signal conductable_hook_removed   (identifier, value, priority, emitter)
 
 # fired on hook access
-signal hooks_set      (new_hooks, old_hooks, emitter)
+signal conductable_hooks_set      (new_hooks, old_hooks, emitter)
 
 # fired on add_filter
-signal filter_added   (filter_identifier, filter_value, emitter)
+signal conductable_filter_added   (identifier, value, priority, emitter)
 
 # fired on filter
-signal filtered       (filter_identifier, input, output, args_arr, emitter)
+signal conductable_filtered       (identifier, input, output, args, emitter)
 
 # fired on remove_filter
-signal filter_removed (filter_identifier, filter_value, emitter)
+signal conductable_filter_removed (identifier, value, priority, emitter)
 
 # fired on filter access
-signal filters_set    (new_filters, old_filters, emitter)
+signal conductable_filters_set    (new_filters, old_filters, emitter)
 
 # fired on add_sub
-signal sub_added      (sub_identifier, sub_value, emitter)
+signal conductable_sub_added      (identifier, value, emitter)
 
 # fired on sub
-signal subbed         (sub_identifier, args_arr, ret_value, emitter)
+signal conductable_subbed         (identifier, args, return_value, emitter)
 
 # fired on remove_sub
-signal sub_removed    (sub_identifier, sub_value, emitter)
+signal conductable_sub_removed    (identifier, value, emitter)
 
 # fired on sub access (with a new value)
-signal subs_set       (new_subs, old_subs, emitter)
+signal conductable_subs_set       (new_subs, old_subs, emitter)
 
 # *************
 # | Constants |
 # *************
 
-const STR_SIGNAL_HOOK_ADDED     : String = 'hook_added'
-const STR_SIGNAL_HOOKED         : String = 'hooked'
-const STR_SIGNAL_HOOK_REMOVED   : String = 'hook_removed'
-const STR_SIGNAL_HOOKS_SET      : String = 'hooks_set'
-const STR_SIGNAL_FILTER_ADDED   : String = 'filter_added'
-const STR_SIGNAL_FILTERED       : String = 'filtered'
-const STR_SIGNAL_FILTER_REMOVED : String = 'filter_removed'
-const STR_SIGNAL_FILTERS_SET    : String = 'filters_set'
-const STR_SIGNAL_SUB_ADDED      : String = 'sub_added'
-const STR_SIGNAL_SUBBED         : String = 'subbed'
-const STR_SIGNAL_SUB_REMOVED    : String = 'sub_removed'
-const STR_SIGNAL_SUBS_SET       : String = 'subs_set'
+const STR_SIGNAL_HOOK_ADDED     : String = 'conductable_hook_added'
+const STR_SIGNAL_HOOKED         : String = 'conductable_hooked'
+const STR_SIGNAL_HOOK_REMOVED   : String = 'conductable_hook_removed'
+const STR_SIGNAL_HOOKS_SET      : String = 'conductable_hooks_set'
+const STR_SIGNAL_FILTER_ADDED   : String = 'conductable_filter_added'
+const STR_SIGNAL_FILTERED       : String = 'conductable_filtered'
+const STR_SIGNAL_FILTER_REMOVED : String = 'conductable_filter_removed'
+const STR_SIGNAL_FILTERS_SET    : String = 'conductable_filters_set'
+const STR_SIGNAL_SUB_ADDED      : String = 'conductable_sub_added'
+const STR_SIGNAL_SUBBED         : String = 'conductable_subbed'
+const STR_SIGNAL_SUB_REMOVED    : String = 'conductable_sub_removed'
+const STR_SIGNAL_SUBS_SET       : String = 'conductable_subs_set'
 
 const STR_IDENTIFIER_SEPARATOR : String = '/'
 const STR_IDENTIFIER_BASE  : String = 'conductable' + STR_IDENTIFIER_SEPARATOR
 const STR_HOOK_BASE        : String = 'STR_HOOK_'
 const STR_FILTER_BASE      : String = 'STR_FILTER_'
 
-const STR_HOOK_SET_FILTERS        : String = STR_IDENTIFIER_BASE + 'set_filters'
-const STR_HOOK_GET_FILTERS        : String = STR_IDENTIFIER_BASE + 'get_filters'
+const STR_HOOK_OUTPUT             : String = STR_IDENTIFIER_BASE + 'output'
+const STR_HOOK_SET_FILTERS        : String = \
+	STR_IDENTIFIER_BASE + 'set_filters'
+const STR_HOOK_GET_FILTERS        : String = \
+	STR_IDENTIFIER_BASE + 'get_filters'
 const STR_HOOK_SET_HOOKS          : String = STR_IDENTIFIER_BASE + 'set_hooks'
 const STR_HOOK_GET_HOOKS          : String = STR_IDENTIFIER_BASE + 'get_hooks'
 const STR_HOOK_SET_SUBS           : String = STR_IDENTIFIER_BASE + 'set_subs'
@@ -139,7 +142,8 @@ const STR_HOOK_PRE_REMOVE_FILTER  : String = \
 	STR_IDENTIFIER_BASE + 'pre_remove_filter'
 const STR_HOOK_POST_REMOVE_FILTER : String = \
 	STR_IDENTIFIER_BASE + 'post_remove_filter'
-const STR_HOOK_PRE_ADD_SUB        : String = STR_IDENTIFIER_BASE + 'pre_add_sub'
+const STR_HOOK_PRE_ADD_SUB        : String = \
+	STR_IDENTIFIER_BASE + 'pre_add_sub'
 const STR_HOOK_POST_ADD_SUB       : String = \
 	STR_IDENTIFIER_BASE + 'post_add_sub'
 const STR_HOOK_PRE_REMOVE_SUB     : String = \
@@ -149,10 +153,12 @@ const STR_HOOK_POST_REMOVE_SUB    : String = \
 const STR_HOOK_PRE_HOOK           : String = STR_IDENTIFIER_BASE + 'pre_hook'
 const STR_HOOK_POST_HOOK          : String = STR_IDENTIFIER_BASE + 'post_hook'
 const STR_HOOK_PRE_FILTER         : String = STR_IDENTIFIER_BASE + 'pre_filter'
-const STR_HOOK_POST_FILTER        : String = STR_IDENTIFIER_BASE + 'post_filter'
+const STR_HOOK_POST_FILTER        : String = \
+	STR_IDENTIFIER_BASE + 'post_filter'
 const STR_HOOK_PRE_SUB            : String = STR_IDENTIFIER_BASE + 'pre_sub'
 const STR_HOOK_POST_SUB           : String = STR_IDENTIFIER_BASE + 'post_sub'
 
+const STR_FILTER_OUTPUT        : String = STR_IDENTIFIER_BASE + 'output'
 const STR_FILTER_NEW_FILTERS   : String = STR_IDENTIFIER_BASE + 'new_filters'
 const STR_FILTER_FILTERS       : String = STR_IDENTIFIER_BASE + 'filters'
 const STR_FILTER_NEW_HOOKS     : String = STR_IDENTIFIER_BASE + 'new_hooks'
@@ -207,6 +213,47 @@ const STR_FILTER_SUB_IDENTIFIER       : String = \
 const STR_FILTER_SUB_ARGS_ARR         : String = \
 	STR_IDENTIFIER_BASE + 'sub_args_arr'
 
+const STR_FUNC__TO_STRING            : String = '_to_string'
+const STR_FUNC___OUTPUT              : String = '__output'
+const STR_FUNC_SET_FILTERS           : String = 'set_filters'
+const STR_FUNC_GET_FILTERS           : String = 'get_filters'
+const STR_FUNC_SET_HOOKS             : String = 'set_hooks'
+const STR_FUNC_GET_HOOKS             : String = 'get_hooks'
+const STR_FUNC_SET_SUBS              : String = 'set_subs'
+const STR_FUNC_GET_SUBS              : String = 'get_subs'
+const STR_FUNC_SIGNAL_HOOK_ADDED     : String = 'signal_hook_added'
+const STR_FUNC_SIGNAL_HOOKED         : String = 'signal_hooked'
+const STR_FUNC_SIGNAL_HOOK_REMOVED   : String = 'signal_hook_removed'
+const STR_FUNC_SIGNAL_HOOKS_SET      : String = 'signal_hooks_set'
+const STR_FUNC_SIGNAL_FILTER_ADDED   : String = 'signal_filter_added'
+const STR_FUNC_SIGNAL_FILTERED       : String = 'signal_filtered'
+const STR_FUNC_SIGNAL_FILTER_REMOVED : String = 'signal_filter_removed'
+const STR_FUNC_SIGNAL_FILTERS_SET    : String = 'signal_filters_set'
+const STR_FUNC_SIGNAL_SUB_ADDED      : String = 'signal_sub_added'
+const STR_FUNC_SIGNAL_SUBBED         : String = 'signal_subbed'
+const STR_FUNC_SIGNAL_SUB_REMOVED    : String = 'signal_sub_removed'
+const STR_FUNC_SIGNAL_SUBS_SET       : String = 'signal_subs_set'
+const STR_FUNC_ADD_FILTER            : String = 'add_filter'
+const STR_FUNC_REMOVE_FILTER         : String = 'remove_filter'
+const STR_FUNC_ADD_HOOK              : String = 'add_hook'
+const STR_FUNC_REMOVE_HOOK           : String = 'remove_hook'
+const STR_FUNC_ADD_SUB               : String = 'add_sub'
+const STR_FUNC_REMOVE_SUB            : String = 'remove_sub'
+const STR_FUNC_FILTER                : String = 'filter'
+const STR_FUNC_HOOK                  : String = 'hook'
+const STR_FUNC_SUB                   : String = 'sub'
+const STR_FUNC__ADD                  : String = '_add'
+const STR_FUNC__REMOVE               : String = '_remove'
+const STR_FUNC___HOOK                : String = '__hook'
+const STR_FUNC___FILTER              : String = '__filter'
+const STR_FUNC__FILTER               : String = '_filter'
+const STR_FUNC__HOOK                 : String = '_hook'
+const STR_FUNC__ACT                  : String = '_act'
+const STR_FUNC__DO_ACTION            : String = '_do_action'
+
+const STR_MIXIN_IDENTIFIER: String = 'conductable'
+
+const INT_DEFAULT_PRIORITY: int = 10
 
 # *************************
 # | Meta Static Functions |
@@ -217,7 +264,7 @@ static func __mixable_info() -> PressAccept_Mixer_Mixin:
 
 	var mixin_info: PressAccept_Mixer_Mixin = \
 		PressAccept_Mixer_Mixin.new(
-			'conductable',
+			STR_MIXIN_IDENTIFIER,
 			'res://addons/PressAccept/Conductor/Conductable.gd'
 		)
 
@@ -248,15 +295,29 @@ static func __mixable_info() -> PressAccept_Mixer_Mixin:
 
 	mixin_info.add_methods(
 		[
-			'add_filter',
-			'remove_filter',
-			'add_hook',
-			'remove_hook',
-			'add_sub',
-			'remove_sub',
-			'filter',
-			'hook',
-			'sub'
+			STR_FUNC_SIGNAL_HOOK_ADDED,
+			STR_FUNC_SIGNAL_HOOKED,
+			STR_FUNC_SIGNAL_HOOK_REMOVED,
+			STR_FUNC_SIGNAL_HOOKS_SET,
+			STR_FUNC_SIGNAL_FILTER_ADDED,
+			STR_FUNC_SIGNAL_FILTERED,
+			STR_FUNC_SIGNAL_FILTER_REMOVED,
+			STR_FUNC_SIGNAL_FILTERS_SET,
+			STR_FUNC_SIGNAL_SUB_ADDED,
+			STR_FUNC_SIGNAL_SUBBED,
+			STR_FUNC_SIGNAL_SUB_REMOVED,
+			STR_FUNC_SIGNAL_SUBS_SET,
+			STR_FUNC__TO_STRING,
+			STR_FUNC___OUTPUT,
+			STR_FUNC_ADD_FILTER,
+			STR_FUNC_REMOVE_FILTER,
+			STR_FUNC_ADD_HOOK,
+			STR_FUNC_REMOVE_HOOK,
+			STR_FUNC_ADD_SUB,
+			STR_FUNC_REMOVE_SUB,
+			STR_FUNC_FILTER,
+			STR_FUNC_HOOK,
+			STR_FUNC_SUB
 		]
 	)
 
@@ -318,9 +379,9 @@ static func get_all_filter_constants(
 # | Public Properties |
 # *********************
 
-var filters : Dictionary setget set_filters , get_filters
-var hooks   : Dictionary setget set_hooks   , get_hooks
-var subs    : Dictionary setget set_subs    , get_subs
+var filters : Dictionary = {} setget set_filters , get_filters
+var hooks   : Dictionary = {} setget set_hooks   , get_hooks
+var subs    : Dictionary = {} setget set_subs    , get_subs
 
 # **********************
 # | Private Properties |
@@ -334,15 +395,77 @@ var _self: Object # mixed container
 
 
 func _init(
-		init_self    : Object,
-		init_filters : Dictionary = {},
-		init_hooks   : Dictionary = {},
-		init_subs    : Dictionary = {}) -> void:
+		init_self    : Object) -> void:
 
 	_self = init_self
-	self.filters = init_filters
-	self.hooks   = init_hooks
-	self.subs    = init_subs
+
+
+# ********************
+# | Built-In Methods |
+# ********************
+
+
+func _to_string() -> String:
+
+	if _self.subs.has(STR_FUNC__TO_STRING):
+		return _self.sub(STR_FUNC__TO_STRING)
+
+	return __output('')
+
+
+# pretty print the dictionary information prefaced by, and using a whitespace
+func __output(
+		prefix: String,
+		tab_char: String = "\t") -> String:
+
+	var _subs: Dictionary = _self.subs
+	if _subs.has(STR_FUNC___OUTPUT):
+		return _self.sub(STR_FUNC___OUTPUT, [ prefix, tab_char ])
+
+	var _hooks: Dictionary = _self.hooks
+	if _hooks.has(STR_HOOK_OUTPUT):
+		_self.hook(STR_HOOK_OUTPUT, [ prefix, tab_char ])
+
+	var output_str: String = ""
+
+	output_str += "\n" + prefix + _self.__get_script() \
+		+ '/' + STR_MIXIN_IDENTIFIER + " ="
+
+	var _filters: Dictionary = _self.filters
+	for set in [ [ 'hooks', _hooks ], [ 'filters', _filters ]]:
+		output_str += "\n" + prefix + tab_char + set[0] + ':'
+		for key in set[1]:
+			output_str += "\n" + prefix + tab_char + tab_char + key + ': '
+			for element in set[1][key]:
+				if element[0] is Object \
+						and element[0].has_method('__output'):
+					output_str += element[0].__output(
+						prefix + tab_char + tab_char + tab_char,
+						tab_char
+					)
+				else:
+					output_str += str(element[0])
+				output_str += ', ' + str(element[1])
+
+	output_str += "\n" + prefix + tab_char + 'subs:'
+	for key in _subs:
+		output_str += "\n" + prefix + tab_char + tab_char + key + ': '
+		if _subs[key] is Object and _subs[key].has_method('__output'):
+			output_str += _subs[key].__output(
+				prefix + tab_char + tab_char + tab_char,
+				tab_char
+			)
+		else:
+			output_str += str(_subs[key])
+
+	if _filters.has(STR_FILTER_OUTPUT):
+		return _self.filter(
+			STR_FILTER_OUTPUT,
+			output_str,
+			[ prefix, tab_char ]
+		)
+	else:
+		return output_str
 
 
 # ******************
@@ -350,71 +473,383 @@ func _init(
 # ******************
 
 
+func _normalize_dict(
+		dict: Dictionary) -> void: # pass by reference
+
+	for key in dict:
+		if typeof(dict[key]) != TYPE_ARRAY:
+			dict[key] = [ [ dict[key], INT_DEFAULT_PRIORITY ] ]
+
+
 func set_filters(
 		new_filters: Dictionary) -> void:
 
-	var old_filters = self.filters
+	if _self.subs.has(STR_FUNC_SET_FILTERS):
+		_self.sub(STR_FUNC_SET_FILTERS, [ new_filters ])
+		return
 
-	new_filters = filter(STR_FILTER_NEW_FILTERS, new_filters)
+	if filters == new_filters:
+		# Godot calls this on indexed assignment, but it's already equal
+		return
+
+	_normalize_dict(new_filters)
+
+	var old_filters = _self.filters
+
+	if filters.has(STR_FILTER_NEW_FILTERS):
+		new_filters = _filter(
+			STR_FILTER_NEW_FILTERS,
+			new_filters,
+			[],
+			filters,
+			hooks,
+			subs
+		)
 
 	filters = new_filters
 
-	hook(STR_HOOK_SET_FILTERS, [ new_filters ])
+	if hooks.has(STR_HOOK_SET_FILTERS):
+		_hook(
+			STR_HOOK_SET_FILTERS,
+			[ new_filters, old_filters ],
+			filters,
+			hooks,
+			subs
+		)
 
-	emit_signal(STR_SIGNAL_FILTERS_SET, self.filters, old_filters, _self)
+	signal_filters_set(_self.filters, old_filters)
 
 
 func get_filters() -> Dictionary:
 
-	hook(STR_HOOK_GET_FILTERS, [ filters ])
+	if subs.has(STR_FUNC_GET_FILTERS):
+		return _do_action(subs[STR_FUNC_GET_FILTERS], [])
 
-	return filter(STR_FILTER_FILTERS, filters)
+	if hooks.has(STR_HOOK_GET_FILTERS):
+		_hook(
+			STR_HOOK_GET_FILTERS,
+			[ filters ],
+			filters,
+			hooks,
+			subs
+		)
+
+	if filters.has(STR_FILTER_FILTERS):
+		return _filter(
+			STR_FILTER_FILTERS,
+			filters,
+			[],
+			filters,
+			hooks,
+			subs
+		)
+
+	return filters
 
 
 func set_hooks(
 		new_hooks: Dictionary) -> void:
 
-	var old_hooks = self.hooks
+	if _self.subs.has(STR_FUNC_SET_HOOKS):
+		_self.sub(STR_FUNC_SET_HOOKS, [ new_hooks ])
+		return
 
-	new_hooks = filter(STR_FILTER_NEW_HOOKS, new_hooks)
+	if hooks == new_hooks:
+		# Godot calls this on indexed assignment, but it's already equal
+		return
+
+	_normalize_dict(new_hooks)
+
+	var old_hooks = _self.hooks
+
+	if filters.has(STR_FILTER_NEW_HOOKS):
+		new_hooks = _filter(
+			STR_FILTER_NEW_HOOKS,
+			new_hooks,
+			[],
+			filters,
+			hooks,
+			subs
+		)
 
 	hooks = new_hooks
 
-	hook(STR_HOOK_SET_HOOKS, [ new_hooks ])
+	if hooks.has(STR_HOOK_SET_HOOKS):
+		_hook(
+			STR_HOOK_SET_HOOKS,
+			[ new_hooks, old_hooks ],
+			filters,
+			hooks,
+			subs
+		)
 
-	emit_signal(STR_SIGNAL_HOOKS_SET, self.hooks, old_hooks, _self)
+	signal_hooks_set(_self.hooks, old_hooks)
 
 
 func get_hooks() -> Dictionary:
 
-	hook(STR_HOOK_GET_HOOKS, [ hooks ])
+	if subs.has(STR_FUNC_GET_HOOKS):
+		return _do_action(subs[STR_FUNC_GET_HOOKS], [])
 
-	return filter(STR_FILTER_HOOKS, hooks)
+	if hooks.has(STR_HOOK_GET_HOOKS):
+		_hook(
+			STR_HOOK_GET_HOOKS,
+			[ hooks ],
+			filters,
+			hooks,
+			subs
+		)
+
+	if filters.has(STR_FILTER_HOOKS):
+		return _filter(
+			STR_FILTER_HOOKS,
+			hooks,
+			[],
+			filters,
+			hooks,
+			subs
+		)
+
+	return hooks
 
 
 func set_subs(
 		new_subs: Dictionary) -> void:
 
+	var _subs : Dictionary = _self.subs
+	if _subs.has(STR_FUNC_SET_SUBS):
+		_self.sub(STR_FUNC_SET_SUBS, [ new_subs ])
+		return
+
 	if subs == new_subs:
 		# Godot calls this on indexed assignment, but it's already equal
 		return
 
-	var old_subs = self.subs
+	var old_subs = _subs
 
-	new_subs = filter(STR_FILTER_NEW_SUBS, new_subs)
+	if filters.has(STR_FILTER_NEW_SUBS):
+		new_subs = _filter(
+			STR_FILTER_NEW_SUBS,
+			new_subs,
+			[],
+			filters,
+			hooks,
+			subs
+		)
 
 	subs = new_subs
 
-	hook(STR_HOOK_SET_SUBS, [ new_subs ])
+	if hooks.has(STR_HOOK_SET_SUBS):
+		_hook(
+			STR_HOOK_SET_SUBS,
+			[ new_subs, old_subs ],
+			filters,
+			hooks,
+			subs
+		)
 
-	emit_signal(STR_SIGNAL_SUBS_SET, self.subs, old_subs, _self)
+	signal_subs_set(_self.subs, old_subs)
 
 
 func get_subs() -> Dictionary:
 
-	hook(STR_HOOK_GET_SUBS, [ subs ] )
+	if subs.has(STR_FUNC_GET_SUBS):
+		return _do_action(subs[STR_FUNC_GET_SUBS], [])
 
-	return filter(STR_FILTER_SUBS, subs)
+	if hooks.has(STR_HOOK_GET_SUBS):
+		_hook(
+			STR_HOOK_GET_SUBS,
+			[ subs ],
+			filters,
+			hooks,
+			subs
+		)
+
+	if filters.has(STR_FILTER_SUBS):
+		return _filter(
+			STR_FILTER_SUBS,
+			subs,
+			[],
+			filters,
+			hooks,
+			subs
+		)
+
+	return subs
+
+
+# ******************
+# | Signal Methods |
+# ******************
+
+
+func signal_hook_added(
+		identifier : String,
+		value,
+		priority   : int) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_HOOK_ADDED):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_HOOK_ADDED],
+			[ identifier, value, priority ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_HOOK_ADDED, identifier, value, priority, _self)
+
+
+func signal_hooked(
+		identifier : String,
+		args       : Array) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_HOOKED):
+		_do_action(subs[STR_FUNC_SIGNAL_HOOKED], [ identifier, args ])
+		return
+
+	emit_signal(STR_SIGNAL_HOOKED, identifier, args, _self)
+
+
+func signal_hook_removed(
+		identifier: String,
+		value,
+		priority: int) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_HOOK_REMOVED):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_HOOK_REMOVED],
+			[ identifier, value, priority ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_HOOK_REMOVED, identifier, value, priority, _self)
+
+
+func signal_hooks_set(
+		new_hooks: Dictionary,
+		old_hooks: Dictionary) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_HOOKS_SET):
+		_do_action(subs[STR_FUNC_SIGNAL_HOOKS_SET], [ new_hooks, old_hooks ])
+		return
+
+	emit_signal(STR_SIGNAL_HOOKS_SET, new_hooks, old_hooks, _self)
+
+
+func signal_filter_added(
+		identifier : String,
+		value,
+		priority   : int) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_FILTER_ADDED):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_FILTER_ADDED],
+			[ identifier, value, priority ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_FILTER_ADDED, identifier, value, priority, _self)
+
+
+func signal_filtered(
+		identifier : String,
+		input,
+		output,
+		args       : Array) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_FILTERED):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_FILTERED],
+			[ identifier, input, output, args ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_FILTERED, identifier, input, output, args, _self)
+
+
+func signal_filter_removed(
+		identifier : String,
+		value,
+		priority   : int) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_FILTER_REMOVED):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_FILTER_REMOVED],
+			[ identifier, value, priority ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_FILTER_REMOVED, identifier, value, priority, _self)
+
+
+func signal_filters_set(
+		new_filters: Dictionary,
+		old_filters: Dictionary) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_FILTERS_SET):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_FILTERS_SET],
+			[ new_filters, old_filters ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_FILTERS_SET, new_filters, old_filters, _self)
+
+
+func signal_sub_added(
+		identifier: String,
+		value) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_SUB_ADDED):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_SUB_ADDED],
+			[ identifier, value ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_SUB_ADDED, identifier, value, _self)
+
+
+func signal_subbed(
+		identifier : String,
+		args       : Array,
+		return_value) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_SUBBED):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_SUBBED],
+			[ identifier, args, return_value ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_SUBBED, identifier, args, return_value, _self)
+
+
+func signal_sub_removed(
+		identifier: String,
+		value) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_SUB_REMOVED):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_SUB_REMOVED],
+			[ identifier, value ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_SUB_REMOVED, identifier, value, _self)
+
+
+func signal_subs_set(
+		new_subs: Dictionary,
+		old_subs: Dictionary) -> void:
+
+	if subs.has(STR_FUNC_SIGNAL_SUBS_SET):
+		_do_action(
+			subs[STR_FUNC_SIGNAL_SUBS_SET],
+			[ new_subs, old_subs ]
+		)
+		return
+
+	emit_signal(STR_SIGNAL_SUBS_SET, new_subs, old_subs, _self)
 
 
 # ******************
@@ -423,144 +858,269 @@ func get_subs() -> Dictionary:
 
 
 func add_filter(
-		filter_identifier: String,
-		filter_value) -> void: # FuncRef | Array | String
+		new_filter_identifier : String,
+		new_filter_value, # FuncRef | Array | String
+		priority_int          : int = INT_DEFAULT_PRIORITY) -> void:
 
-	if self.subs.has('add_filter'):
-		sub('add_filter', [ filter_identifier, filter_value ])
+	var _subs: Dictionary = _self.subs
+	if _subs.has(STR_FUNC_ADD_FILTER):
+		_self.sub(
+			STR_FUNC_ADD_FILTER,
+			[ new_filter_identifier, new_filter_value, priority_int ]
+		)
 		return
 
-	var _filters: Dictionary = self.filters
+	var _filters : Dictionary = _self.filters
+	var _hooks   : Dictionary = _self.hooks
 
-	filter_identifier = filter(
-		STR_FILTER_ADD_FILTER_IDENTIFIER,
-		filter_identifier,
-		[ filter_value, _filters ]
-	)
+	if _filters.has(STR_FILTER_ADD_FILTER_IDENTIFIER):
+		new_filter_identifier = _filter(
+			STR_FILTER_ADD_FILTER_IDENTIFIER,
+			new_filter_identifier,
+			[ new_filter_value, priority_int, _filters ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	filter_value = filter(
-		STR_FILTER_ADD_FILTER_VALUE,
-		filter_value,
-		[ filter_identifier, _filters ]
-	)
+	if _filters.has(STR_FILTER_ADD_FILTER_VALUE):
+		new_filter_value = _filter(
+			STR_FILTER_ADD_FILTER_VALUE,
+			new_filter_value,
+			[ new_filter_identifier, priority_int, _filters ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	if not filter_identifier or not filter_value:
+	if not new_filter_identifier or not new_filter_value:
 		return
 
-	hook(STR_HOOK_PRE_ADD_FILTER, [ filter_identifier, filter_value ])
+	if _hooks.has(STR_HOOK_PRE_ADD_FILTER):
+		_hook(
+			STR_HOOK_PRE_ADD_FILTER,
+			[ new_filter_identifier, new_filter_value, priority_int ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	_add(self.filters, filter_identifier, filter_value)
+	_add(_filters, new_filter_identifier, new_filter_value, priority_int)
 
-	hook(STR_HOOK_POST_ADD_FILTER, [ filter_identifier, filter_value ])
+	signal_filter_added(new_filter_identifier, new_filter_value, priority_int)
 
-	emit_signal(STR_SIGNAL_FILTER_ADDED, filter_identifier, filter_value, _self)
+	if _hooks.has(STR_HOOK_POST_ADD_FILTER):
+		_hook(
+			STR_HOOK_POST_ADD_FILTER,
+			[ new_filter_identifier, new_filter_value, priority_int ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
 
 func remove_filter(
-		filter_identifier: String,
-		filter_value) -> bool: # FuncRef | Array | String
+		remove_filter_identifier : String,
+		remove_filter_value,  # FuncRef | Array | String
+		priority_int             : int = -1) -> bool:
 
-	if self.subs.has('remove_filter'):
-		return sub('remove_filter', [ filter_identifier, filter_value ])
+	var _subs: Dictionary = _self.subs
+	if _subs.has(STR_FUNC_REMOVE_FILTER):
+		return _self.sub(
+			STR_FUNC_REMOVE_FILTER,
+			[ remove_filter_identifier, remove_filter_value, priority_int ]
+		)
 
-	var _filters: Dictionary = self.filters
+	var _filters : Dictionary = _self.filters
+	var _hooks   : Dictionary = _self.hooks
 
-	filter_identifier = filter(
-		STR_FILTER_REMOVE_FILTER_IDENTIFIER,
-		filter_identifier,
-		[ filter_value, _filters ]
-	)
+	if _filters.has(STR_FILTER_REMOVE_FILTER_IDENTIFIER):
+		remove_filter_identifier = _filter(
+			STR_FILTER_REMOVE_FILTER_IDENTIFIER,
+			remove_filter_identifier,
+			[ remove_filter_value, priority_int, _filters ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	filter_value = filter(
-		STR_FILTER_REMOVE_FILTER_VALUE,
-		filter_value,
-		[ filter_identifier, _filters ]
-	)
+	if _filters.has(STR_FILTER_REMOVE_FILTER_VALUE):
+		remove_filter_value = _filter(
+			STR_FILTER_REMOVE_FILTER_VALUE,
+			remove_filter_value,
+			[ remove_filter_identifier, priority_int, _filters ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	if not filter_identifier or not filter_value:
+	if not remove_filter_identifier or not remove_filter_value:
 		return false
 
-	hook(STR_HOOK_PRE_REMOVE_FILTER, [ filter_identifier, filter_value ])
+	if _hooks.has(STR_HOOK_PRE_REMOVE_FILTER):
+		_hook(
+			STR_HOOK_PRE_REMOVE_FILTER,
+			[ remove_filter_identifier, remove_filter_value, priority_int ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	var ret: bool = _remove(self.filters, filter_identifier, filter_value)
-
-	hook(STR_HOOK_POST_REMOVE_FILTER, [ filter_identifier, filter_value ])
-
-	emit_signal(
-		STR_SIGNAL_FILTER_REMOVED,
-		filter_identifier,
-		filter_value,
-		_self
+	var ret: bool = _remove(
+		_filters,
+		remove_filter_identifier,
+		remove_filter_value,
+		priority_int
 	)
+
+	signal_filter_removed(
+		remove_filter_identifier,
+		remove_filter_value,
+		priority_int
+	)
+
+	if _hooks.has(STR_HOOK_POST_REMOVE_FILTER):
+		_hook(
+			STR_HOOK_POST_REMOVE_FILTER,
+			[ remove_filter_identifier, remove_filter_value, priority_int ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
 	return ret
 
 
 func add_hook(
-		hook_identifier: String,
-		hook_value) -> void: # FuncRef | Array | String
+		new_hook_identifier : String,
+		new_hook_value,  # FuncRef | Array | String
+		priority_int        : int = INT_DEFAULT_PRIORITY) -> void:
 
-	if self.subs.has('add_hook'):
-		sub('add_hook', [ hook_identifier, hook_value ])
+	var _subs: Dictionary = _self.subs
+	if _subs.has(STR_FUNC_ADD_HOOK):
+		_self.sub(
+			STR_FUNC_ADD_HOOK,
+			[ new_hook_identifier, new_hook_value, priority_int ]
+		)
 		return
 
-	var _hooks: Dictionary = self.hooks
+	var _filters : Dictionary = _self.filters
+	var _hooks   : Dictionary = _self.hooks
 
-	hook_identifier = filter(
+	if _filters.has(STR_FILTER_ADD_HOOK_IDENTIFIER):
+		new_hook_identifier = _filter(
 			STR_FILTER_ADD_HOOK_IDENTIFIER,
-			hook_identifier,
-			[ hook_value, _hooks ]
+			new_hook_identifier,
+			[ new_hook_value, priority_int, _hooks ],
+			_filters,
+			_hooks,
+			_subs
 		)
 
-	hook_value = filter(
+	if _filters.has(STR_FILTER_ADD_HOOK_VALUE):
+		new_hook_value = _filter(
 			STR_FILTER_ADD_HOOK_VALUE,
-			hook_value,
-			[ hook_identifier, _hooks ]
+			new_hook_value,
+			[ new_hook_identifier, priority_int, _hooks ],
+			_filters,
+			_hooks,
+			_subs
 		)
 
-	if not hook_identifier or not hook_value:
+	if not new_hook_identifier or not new_hook_value:
 		return
 
-	hook(STR_HOOK_PRE_ADD_HOOK, [ hook_identifier, hook_value ])
+	if _hooks.has(STR_HOOK_PRE_ADD_HOOK):
+		_hook(
+			STR_HOOK_PRE_ADD_HOOK,
+			[ new_hook_identifier, new_hook_value, priority_int ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	_add(self.hooks, hook_identifier, hook_value)
+	_add(_hooks, new_hook_identifier, new_hook_value, priority_int)
 
-	hook(STR_HOOK_POST_ADD_HOOK, [ hook_identifier, hook_value ])
+	signal_hook_added(new_hook_identifier, new_hook_value, priority_int)
 
-	emit_signal(STR_SIGNAL_HOOK_ADDED, hook_identifier, hook_value, _self)
+	if _hooks.has(STR_HOOK_POST_ADD_HOOK):
+		_hook(
+			STR_HOOK_POST_ADD_HOOK,
+			[ new_hook_identifier, new_hook_value, priority_int ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
 
 func remove_hook(
-		hook_identifier: String,
-		hook_value) -> bool: # FuncRef | Array | String
+		remove_hook_identifier : String,
+		remove_hook_value,  # FuncRef | Array | String
+		priority_int           : int = -1) -> bool:
 
-	if self.subs.has('remove_hook'):
-		return sub('remove_hook', [ hook_identifier, hook_value ])
+	var _subs = _self.subs
+	if _subs.has(STR_FUNC_REMOVE_HOOK):
+		return _self.sub(
+			STR_FUNC_REMOVE_HOOK,
+			[ remove_hook_identifier, remove_hook_value, priority_int ]
+		)
 
-	var _hooks: Dictionary = self.hooks
+	var _filters : Dictionary = _self.filters
+	var _hooks   : Dictionary = _self.hooks
 
-	hook_identifier = filter(
+	if _filters.has(STR_FILTER_REMOVE_HOOK_IDENTIFIER):
+		remove_hook_identifier = _filter(
 			STR_FILTER_REMOVE_HOOK_IDENTIFIER,
-			hook_identifier,
-			[ hook_value, _hooks ]
+			remove_hook_identifier,
+			[ remove_hook_value, priority_int, _hooks ],
+			_filters,
+			_hooks,
+			_subs
 		)
 
-	hook_value = filter(
+	if _filters.has(STR_FILTER_REMOVE_HOOK_VALUE):
+		remove_hook_value = _filter(
 			STR_FILTER_REMOVE_HOOK_VALUE,
-			hook_value,
-			[ hook_identifier, _hooks ]
+			remove_hook_value,
+			[ remove_hook_identifier, priority_int, _hooks ],
+			_filters,
+			_hooks,
+			_subs
 		)
 
-	if not hook_identifier or not hook_value:
+	if not remove_hook_identifier or not remove_hook_value:
 		return false
 
-	hook(STR_HOOK_PRE_REMOVE_HOOK, [ hook_identifier, hook_value ])
+	if _hooks.has(STR_HOOK_PRE_REMOVE_HOOK):
+		_hook(
+			STR_HOOK_PRE_REMOVE_HOOK,
+			[ remove_hook_identifier, remove_hook_value, priority_int ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	var ret: bool = _remove(self.hooks, hook_identifier, hook_value)
+	var ret: bool = _remove(
+		_hooks,
+		remove_hook_identifier,
+		remove_hook_value,
+		priority_int
+	)
 
-	hook(STR_HOOK_POST_REMOVE_HOOK, [ hook_identifier, hook_value ])
+	signal_hook_removed(
+		remove_hook_identifier,
+		remove_hook_value,
+		priority_int
+	)
 
-	emit_signal(STR_SIGNAL_HOOK_REMOVED, hook_identifier, hook_value, _self)
+	if _hooks.has(STR_HOOK_POST_REMOVE_HOOK):
+		_hook(
+			STR_HOOK_POST_REMOVE_HOOK,
+			[ remove_hook_identifier, remove_hook_value, priority_int ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
 	return ret
 
@@ -569,63 +1129,111 @@ func add_sub(
 		sub_identifier: String,
 		sub_value) -> void: # FuncRef | Array | String
 
-	var _subs: Dictionary = self.subs
-
-	if _subs.has('add_sub'):
-		sub('add_sub', [ sub_identifier, sub_value ])
+	var _subs: Dictionary = _self.subs
+	if _subs.has(STR_FUNC_ADD_SUB):
+		_self.sub(STR_FUNC_ADD_SUB, [ sub_identifier, sub_value ])
 		return
 
-	sub_identifier = filter(
-		STR_FILTER_ADD_SUB_IDENTIFIER,
-		sub_identifier,
-		[ sub_value, _subs ]
-	)
+	var _filters : Dictionary = _self.filters
+	var _hooks   : Dictionary = _self.hooks
 
-	sub_value = filter(
-		STR_FILTER_ADD_SUB_VALUE,
-		sub_value,
-		[ sub_identifier, _subs ]
-	)
+	if _filters.has(STR_FILTER_ADD_SUB_IDENTIFIER):
+		sub_identifier = _filter(
+			STR_FILTER_ADD_SUB_IDENTIFIER,
+			sub_identifier,
+			[ sub_value, _subs ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	hook(STR_HOOK_PRE_ADD_SUB, [ sub_identifier, sub_value ])
+	if _filters.has(STR_FILTER_ADD_SUB_VALUE):
+		sub_value = _filter(
+			STR_FILTER_ADD_SUB_VALUE,
+			sub_value,
+			[ sub_identifier, _subs ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	self.subs[sub_identifier] = sub_value
+	if _hooks.has(STR_HOOK_PRE_ADD_SUB):
+		_hook(
+			STR_HOOK_PRE_ADD_SUB,
+			[ sub_identifier, sub_value ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	hook(STR_HOOK_POST_ADD_SUB, [ sub_identifier, sub_value ])
+	_subs[sub_identifier] = sub_value
 
-	emit_signal(STR_SIGNAL_SUB_ADDED, sub_identifier, sub_value, _self)
+	signal_sub_added(sub_identifier, sub_value)
+
+	if _hooks.has(STR_HOOK_POST_ADD_SUB):
+		_hook(
+			STR_HOOK_POST_ADD_SUB,
+			[ sub_identifier, sub_value ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
 
 func remove_sub(
 		sub_identifier: String) -> bool:
 
-	var _subs: Dictionary = self.subs
+	var _subs: Dictionary = _self.subs
+	if _subs.has(STR_FUNC_REMOVE_SUB):
+		return _self.sub(STR_FUNC_REMOVE_SUB, [ sub_identifier ])
 
-	if _subs.has('remove_sub'):
-		return sub('remove_sub', [ sub_identifier ])
+	var _filters : Dictionary = _self.filters
+	var _hooks   : Dictionary = _self.hooks
 
-	sub_identifier = filter(
-		STR_FILTER_REMOVE_SUB_IDENTIFIER,
-		sub_identifier,
-		[ _subs[sub_identifier], _subs ]
-	)
+	if _filters.has(STR_FILTER_REMOVE_SUB_IDENTIFIER):
+		sub_identifier = _filter(
+			STR_FILTER_REMOVE_SUB_IDENTIFIER,
+			sub_identifier,
+			[ _subs[sub_identifier], _subs ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	var sub_value = filter(
-		STR_FILTER_REMOVE_SUB_VALUE,
-		_subs[sub_identifier],
-		[ sub_identifier, _subs ]
-	)
+	var sub_value = _subs[sub_identifier]
+	if _filters.has(STR_FILTER_REMOVE_SUB_VALUE):
+		sub_value = _filter(
+			STR_FILTER_REMOVE_SUB_VALUE,
+			sub_value,
+			[ sub_identifier, _subs ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
 	if not sub_identifier or not sub_value:
 		return false
 
-	hook(STR_HOOK_PRE_REMOVE_SUB, [ sub_identifier, sub_value ])
+	if _hooks.has(STR_HOOK_PRE_REMOVE_SUB):
+		_hook(
+			STR_HOOK_PRE_REMOVE_SUB,
+			[ sub_identifier, sub_value ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	var ret: bool = self.subs.erase(sub_identifier)
+	var ret: bool = _subs.erase(sub_identifier)
+	signal_sub_removed(sub_identifier, sub_value)
 
-	hook(STR_HOOK_POST_REMOVE_SUB, [ sub_identifier, sub_value ])
-
-	emit_signal(STR_SIGNAL_SUB_REMOVED, sub_identifier, sub_value, _self)
+	if _hooks.has(STR_HOOK_POST_REMOVE_SUB):
+		_hook(
+			STR_HOOK_POST_REMOVE_SUB,
+			[ sub_identifier, sub_value ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
 	return ret
 
@@ -637,124 +1245,110 @@ func remove_sub(
 
 # execute a filter, should only be called by _self
 func filter(
-		filter_identifier: String,
+		filter_identifier : String,
 		filter_value,
-		args_arr: Array = []):
+		args_arr          : Array = []):
 
-	if subs.has('filter'):
-		return sub('filter', [ filter_identifier, filter_value, args_arr ])
+	var _subs: Dictionary = _self.subs
+	if _subs.has(STR_FUNC_FILTER):
+		return _self.sub(
+			STR_FUNC_FILTER,
+			[ filter_identifier, filter_value, args_arr ]
+		)
 
-	filter_identifier = _act(
-		filters,
-		STR_FILTER_FILTER_IDENTIFIER,
-		[ filter_value, args_arr ],
-		true,
-		filter_identifier
-	)
-
-	args_arr = _act(
-		filters,
-		STR_FILTER_FILTER_ARGS_ARR,
-		[ filter_identifier, filter_value ],
-		true,
-		args_arr
-	)
-
-	var input = filter_value
-
-	_act(hooks, STR_HOOK_PRE_FILTER, [ filter_identifier, input, args_arr ])
-
-	var output = \
-		_act(filters, filter_identifier, args_arr, true, filter_value)
-
-	_act(hooks, STR_HOOK_POST_FILTER, [ filter_identifier, output, args_arr ])
-
-	emit_signal(
-		STR_SIGNAL_FILTERED,
+	return _filter(
 		filter_identifier,
-		input,
-		output,
+		filter_value,
 		args_arr,
-		_self
+		_self.filters,
+		_self.hooks,
+		_subs
 	)
-
-	return output
 
 
 # execute a hook, should only be called by _self
 func hook(
-		hook_identifier: String,
-		args_arr: Array = []) -> void:
+		hook_identifier : String,
+		hook_args_arr   : Array = []) -> void:
 
-	if subs.has('hook'):
-		sub('hook', [ hook_identifier, args_arr ])
+	var _subs: Dictionary = _self.subs
+	if _subs.has(STR_FUNC_HOOK):
+		_self.sub(STR_FUNC_HOOK, [ hook_identifier, hook_args_arr ])
 		return
 
-	hook_identifier = filter(
-		STR_FILTER_HOOK_IDENTIFIER,
-		hook_identifier,
-		[ args_arr ]
-	)
-
-	args_arr = filter(
-		STR_FILTER_HOOK_ARGS_ARR,
-		args_arr,
-		[ hook_identifier ]
-	)
-
-	_act(hooks, STR_HOOK_PRE_HOOK, [ hook_identifier, args_arr ])
-
-	_act(hooks, hook_identifier, args_arr)
-
-	_act(hooks, STR_HOOK_POST_HOOK, [ hook_identifier, args_arr ])
-
-	emit_signal(STR_SIGNAL_HOOKED, hook_identifier, args_arr, _self)
+	_hook(hook_identifier, hook_args_arr, _self.filters, _self.hooks, _subs)
 
 
 # execute a sub(stitution), should only be called by _self
 func sub(
-		sub_identifier: String,
-		args_arr: Array = []):
+		sub_identifier : String,
+		args_arr       : Array = []):
 
-	sub_identifier = filter(
-		STR_FILTER_SUB_IDENTIFIER,
-		sub_identifier,
-		[ args_arr ]
-	)
+	var _subs    : Dictionary = _self.subs
+	if _subs.has(STR_FUNC_SUB):
+		return _do_action(_subs[STR_FUNC_SUB], [ sub_identifier, args_arr ])
 
-	args_arr = filter(
-		STR_FILTER_SUB_ARGS_ARR,
-		args_arr,
-		[ sub_identifier ]
-	)
+	var _filters : Dictionary = _self.filters
+	var _hooks   : Dictionary = _self.hooks
 
-	if subs.has(sub_identifier):
-		hook(STR_HOOK_PRE_SUB, [ sub_identifier, args_arr ])
+	var action = _subs[sub_identifier] if _subs.has(sub_identifier) else null
 
-		var action = filter(
-			STR_FILTER_SUB_ACTION,
-			self.subs[sub_identifier],
-			[ sub_identifier, args_arr ]
+	if _filters.has(STR_FILTER_SUB_IDENTIFIER):
+		sub_identifier = _filter(
+			STR_FILTER_SUB_IDENTIFIER,
+			sub_identifier,
+			[ args_arr, action ],
+			_filters,
+			_hooks,
+			_subs
 		)
 
-		if typeof(action) == TYPE_ARRAY:
-			if action.size() == 2:
-				if typeof(action[0]) == TYPE_OBJECT \
-						and typeof(action[1]) == TYPE_STRING:
-					action = funcref(action[0], action[1])
+	if _filters.has(STR_FILTER_SUB_ARGS_ARR):
+		args_arr = _filter(
+			STR_FILTER_SUB_ARGS_ARR,
+			args_arr,
+			[ sub_identifier, action ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-		var ret
+	if not _subs.has(sub_identifier):
+		return action
+	
+	if _filters.has(STR_FILTER_SUB_ACTION):
+		action = _filter(
+			STR_FILTER_SUB_ACTION,
+			action,
+			[ sub_identifier, args_arr ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-		if action is FuncRef and action.is_valid():
-			ret = action.call_funcv(args_arr + [ _self ])
+	if _hooks.has(STR_HOOK_PRE_SUB):
+		_hook(
+			STR_HOOK_PRE_SUB,
+			[ sub_identifier, args_arr, action ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-		hook(STR_HOOK_POST_SUB, [ sub_identifier, args_arr, ret ])
+	var return_value = _do_action(action, args_arr, false)
 
-		emit_signal(STR_SIGNAL_SUBBED, sub_identifier, args_arr, ret, _self)
+	signal_subbed(sub_identifier, args_arr, return_value)
 
-		return ret
+	if _hooks.has(STR_HOOK_POST_SUB):
+		_hook(
+			STR_HOOK_POST_SUB,
+			[ sub_identifier, args_arr, action, return_value ],
+			_filters,
+			_hooks,
+			_subs
+		)
 
-	return null
+	return return_value
 
 
 # *******************
@@ -764,83 +1358,280 @@ func sub(
 
 # add a hook or filter to underlying dictionary
 func _add(
-		dict: Dictionary,
-		dict_identifier,
-		value) -> void:
+		dict            : Dictionary,
+		dict_identifier : String,
+		value,
+		priority_int    : int = INT_DEFAULT_PRIORITY) -> void:
 
-	if subs.has('_add'):
-		sub('_add', [ dict, dict_identifier, value ])
+	if subs.has(STR_FUNC__ADD):
+		sub(STR_FUNC__ADD, [ dict, dict_identifier, value, priority_int ])
 		return
 
+	if not dict.has(dict_identifier):
+		dict[dict_identifier] = []
+
+	dict[dict_identifier].push_back([ value, priority_int ])
+	dict[dict_identifier].sort_custom(self, '_sort')
+
+
+func _sort(
+		a,
+		b) -> bool:
+
+	return a[1] < b[1]
+
+
+# remove a hook or filter from the underlying dictionary
+func _remove(
+		dict            : Dictionary,
+		dict_identifier : String,
+		value,
+		priority_int    : int = -1) -> bool:
+
+	if subs.has(STR_FUNC__REMOVE):
+		return sub(
+			STR_FUNC__REMOVE,
+			[ dict, dict_identifier, value, priority_int ]
+		)
+
 	if dict.has(dict_identifier):
-		if typeof(dict[dict_identifier]) == TYPE_ARRAY:
-			dict[dict_identifier].push_back(value)
-		else:
-			dict[dict_identifier] = \
-				[dict[dict_identifier], value]
-	else:
-		dict[dict_identifier] = value
+		for element in dict[dict_identifier].duplicate():
+			if element[0] == value \
+					and (priority_int < 0 or element[1] == priority_int):
+				dict[dict_identifier].erase(element)
+				return true
+
+	return false
+
+
+func __hook(
+		hook_identifier : String,
+		hook_args_arr   : Array      = [],
+		_hooks          : Dictionary = _self.hooks,
+		_subs           : Dictionary = _self.subs) -> void:
+
+	if _subs.has(STR_FUNC___HOOK):
+		_do_action(
+			_subs[STR_FUNC___HOOK],
+			[ hook_identifier, hook_args_arr, _hooks, _subs ]
+		)
+		return
+
+	if _hooks.has(STR_HOOK_PRE_HOOK):
+		_act(_hooks, STR_HOOK_PRE_HOOK, [ hook_identifier, hook_args_arr ] )
+
+		signal_hooked(STR_HOOK_PRE_HOOK, [ hook_identifier, hook_args_arr ])
+
+	_act(_hooks, hook_identifier, hook_args_arr)
+
+	signal_hooked(hook_identifier, hook_args_arr)
+
+	if _hooks.has(STR_HOOK_POST_HOOK):
+		_act(_hooks, STR_HOOK_POST_HOOK, [ hook_identifier, hook_args_arr ] )
+
+		signal_hooked(STR_HOOK_POST_HOOK, [ hook_identifier, hook_args_arr ])
+
+
+func __filter(
+		filter_identifier : String,
+		filter_value,
+		filter_args_arr   : Array      = [],
+		_filters          : Dictionary = _self.filters,
+		_hooks            : Dictionary = _self.hooks,
+		_subs             : Dictionary = _self.subs):
+
+	if _subs.has(STR_FUNC___FILTER):
+		return _do_action(
+			_subs[STR_FUNC___FILTER],
+			[
+				filter_identifier,
+				filter_value,
+				filter_args_arr,
+				_filters,
+				_hooks,
+				_subs
+			]
+		)
+
+	var input = filter_value
+
+	if _hooks.has(STR_HOOK_PRE_FILTER):
+		__hook(
+			STR_HOOK_PRE_FILTER,
+			[ filter_identifier, input, filter_args_arr ],
+			_hooks,
+			_subs
+		)
+
+	var output = _act(
+		_filters,
+		filter_identifier,
+		filter_args_arr,
+		true,
+		filter_value
+	)
+
+	signal_filtered(filter_identifier, input, output, filter_args_arr)
+
+	if _hooks.has(STR_HOOK_POST_FILTER):
+		__hook(
+			STR_HOOK_POST_FILTER,
+			[ filter_identifier, input, output, filter_args_arr ],
+			_hooks,
+			_subs
+		)
+
+	return output
+
+
+func _filter(
+		filter_identifier : String,
+		filter_value,
+		filter_args_arr   : Array      = [],
+		_filters          : Dictionary = _self.filters,
+		_hooks            : Dictionary = _self.hooks,
+		_subs             : Dictionary = _self.subs):
+
+	if _subs.has(STR_FUNC__FILTER):
+		return _do_action(
+			_subs[STR_FUNC__FILTER],
+			[
+				filter_identifier,
+				filter_value,
+				filter_args_arr,
+				_filters,
+				_hooks,
+				_subs
+			]
+		)
+
+	var filter = _filters[filter_identifier] \
+		if _filters.has(filter_identifier) \
+		else null
+
+	if _filters.has(STR_FILTER_FILTER_IDENTIFIER):
+		filter_identifier = __filter(
+			STR_FILTER_FILTER_IDENTIFIER,
+			filter_identifier,
+			[ filter_value, filter_args_arr, filter ],
+			_filters,
+			_hooks,
+			_subs
+		)
+
+	if _filters.has(STR_FILTER_FILTER_ARGS_ARR):
+		filter_args_arr = __filter(
+			STR_FILTER_FILTER_ARGS_ARR,
+			filter_args_arr,
+			[ filter_identifier, filter_value, filter ],
+			_filters,
+			_hooks,
+			_subs
+		)
+
+	return __filter(
+		filter_identifier,
+		filter_value,
+		filter_args_arr,
+		_filters,
+		_hooks,
+		_subs
+	)
+
+
+func _hook(
+		hook_identifier : String,
+		hook_args_arr   : Array      = [],
+		_filters        : Dictionary = _self.filters,
+		_hooks          : Dictionary = _self.hooks,
+		_subs           : Dictionary = _self.subs) -> void:
+
+	if _subs.has(STR_FUNC__HOOK):
+		_do_action(
+			_subs[STR_FUNC__HOOK],
+			[ hook_identifier, hook_args_arr, _filters, _hooks, _subs ]
+		)
+		return
+
+	var hook = _hooks[hook_identifier] if _hooks.has(hook_identifier) else null
+
+	if _filters.has(STR_FILTER_HOOK_IDENTIFIER):
+		hook_identifier = _filter(
+			STR_FILTER_HOOK_IDENTIFIER,
+			hook_identifier,
+			[ hook_args_arr, hook ],
+			_filters,
+			_hooks,
+			_subs
+		)
+
+	if _filters.has(STR_FILTER_HOOK_ARGS_ARR):
+		hook_args_arr = _filter(
+			STR_FILTER_HOOK_ARGS_ARR,
+			hook_args_arr,
+			[ hook_identifier, hook ],
+			_filters,
+			_hooks,
+			_subs
+		)
+
+	__hook(hook_identifier, hook_args_arr, _hooks, _subs)
 
 
 # carry out a hook or filter (may cause multiple funcref executions)
 func _act(
-		dict        : Dictionary,
-		dict_identifier,
-		args_arr    : Array = [],
-		filter_bool : bool  = false,
-		filter_value        = null):
+		dict            : Dictionary,
+		dict_identifier : String,
+		args_arr        : Array = [],
+		filter_bool     : bool  = false,
+		filter_value            = null):
 
-	if subs.has('_act'):
+	if subs.has(STR_FUNC__ACT):
 		return sub(
-			'_act',
+			STR_FUNC__ACT,
 			[ dict, dict_identifier, args_arr, filter_bool, filter_value ]
 		)
 
 	var ret = filter_value
 
 	if dict.has(dict_identifier):
-		if typeof(dict[dict_identifier]) == TYPE_ARRAY:
-			for action in dict[dict_identifier]:
-				ret = _do_action(
-					dict[dict_identifier],
-					([ ret ] + args_arr) if filter_bool else args_arr
-				)
-		else:
+		for action in dict[dict_identifier]:
 			ret = _do_action(
-				dict[dict_identifier],
+				action[0], # dict[dict_identifier],
 				([ ret ] + args_arr) if filter_bool else args_arr
 			)
+#		else:
+#			ret = _do_action(
+#				dict[dict_identifier],
+#				([ ret ] + args_arr) if filter_bool else args_arr
+#			)
 
 	return ret
-
-
-# remove a hook or filter from the underlying dictionary
-func _remove(
-		dict: Dictionary,
-		dict_identifier,
-		value) -> bool:
-
-	if subs.has('_remove'):
-		return sub('_remove', [ dict, dict_identifier, value ])
-
-	if dict.has(dict_identifier):
-		if typeof(dict[dict_identifier]) == TYPE_ARRAY:
-			if dict[dict_identifier].has(value):
-				dict[dict_identifier].erase(value)
-				return true
-		else:
-			return dict.erase(dict_identifier)
-
-	return false
 
 
 # execute the funcref
 func _do_action(
 		action,
-		args_arr: Array):
+		args_arr   : Array = [],
+		return_arg : bool  = true):
 
-	if subs.has('_do_action'):
-		return sub('_do_action', [ action, args_arr ])
+	if subs.has(STR_FUNC__DO_ACTION):
+		var _args_arr = [ action, args_arr, return_arg ]
+		action = subs[STR_FUNC__DO_ACTION]
+		args_arr = _args_arr
+
+		if typeof(action) == TYPE_ARRAY:
+			if action.size() == 2:
+				if typeof(action[0]) == TYPE_OBJECT \
+						and typeof(action[1]) == TYPE_STRING:
+					action = funcref(action[0], action[1])
+		elif typeof(action) == TYPE_STRING:
+			action = funcref(_self, action)
+
+		if action is FuncRef and action.is_valid():
+			return action.call_funcv(args_arr + [ _self ])
+
+		return null
 
 	if typeof(action) == TYPE_ARRAY:
 		if action.size() == 2:
@@ -853,7 +1644,7 @@ func _do_action(
 	if action is FuncRef and action.is_valid():
 		return action.call_funcv(args_arr + [ _self ])
 
-	if args_arr:
+	if return_arg and args_arr:
 		return args_arr[0]
 
 	return null
