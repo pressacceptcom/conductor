@@ -4210,40 +4210,40 @@ func test_substitutions() -> void:
 	conductable.conductable.get_subs()
 	assert_has(flags, 'sub_get_subs')
 
-	conductable.signal_hook_added('', null, 0)
+	conductable.conductor_signal_hook_added('', null, 0)
 	assert_has(flags, 'sub_signal_hook_added')
 
-	conductable.signal_hooked('', [])
+	conductable.conductor_signal_hooked('', [])
 	assert_has(flags, 'sub_signal_hooked')
 
-	conductable.signal_hook_removed('', null, 0)
+	conductable.conductor_signal_hook_removed('', null, 0)
 	assert_has(flags, 'sub_signal_hook_removed')
 
-	conductable.signal_hooks_set({}, {})
+	conductable.conductor_signal_hooks_set({}, {})
 	assert_has(flags, 'sub_signal_hooks_set')
 
-	conductable.signal_filter_added('', null, 0)
+	conductable.conductor_signal_filter_added('', null, 0)
 	assert_has(flags, 'sub_signal_filter_added')
 
-	conductable.signal_filtered('', null, null, [])
+	conductable.conductor_signal_filtered('', null, null, [])
 	assert_has(flags, 'sub_signal_filtered')
 
-	conductable.signal_filter_removed('', null, 0)
+	conductable.conductor_signal_filter_removed('', null, 0)
 	assert_has(flags, 'sub_signal_filter_removed')
 
-	conductable.signal_filters_set({}, {})
+	conductable.conductor_signal_filters_set({}, {})
 	assert_has(flags, 'sub_signal_filters_set')
 
-	conductable.signal_sub_added('', null)
+	conductable.conductor_signal_sub_added('', null)
 	assert_has(flags, 'sub_signal_sub_added')
 
-	conductable.signal_subbed('', [], null)
+	conductable.conductor_signal_subbed('', [], null)
 	assert_has(flags, 'sub_signal_subbed')
 
-	conductable.signal_sub_removed('', null)
+	conductable.conductor_signal_sub_removed('', null)
 	assert_has(flags, 'sub_signal_sub_removed')
 
-	conductable.signal_subs_set({}, {})
+	conductable.conductor_signal_subs_set({}, {})
 	assert_has(flags, 'sub_signal_subs_set')
 
 	conductable.add_filter('', null)

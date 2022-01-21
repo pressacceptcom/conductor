@@ -221,18 +221,19 @@ const STR_FUNC_SET_HOOKS             : String = 'set_hooks'
 const STR_FUNC_GET_HOOKS             : String = 'get_hooks'
 const STR_FUNC_SET_SUBS              : String = 'set_subs'
 const STR_FUNC_GET_SUBS              : String = 'get_subs'
-const STR_FUNC_SIGNAL_HOOK_ADDED     : String = 'signal_hook_added'
-const STR_FUNC_SIGNAL_HOOKED         : String = 'signal_hooked'
-const STR_FUNC_SIGNAL_HOOK_REMOVED   : String = 'signal_hook_removed'
-const STR_FUNC_SIGNAL_HOOKS_SET      : String = 'signal_hooks_set'
-const STR_FUNC_SIGNAL_FILTER_ADDED   : String = 'signal_filter_added'
-const STR_FUNC_SIGNAL_FILTERED       : String = 'signal_filtered'
-const STR_FUNC_SIGNAL_FILTER_REMOVED : String = 'signal_filter_removed'
-const STR_FUNC_SIGNAL_FILTERS_SET    : String = 'signal_filters_set'
-const STR_FUNC_SIGNAL_SUB_ADDED      : String = 'signal_sub_added'
-const STR_FUNC_SIGNAL_SUBBED         : String = 'signal_subbed'
-const STR_FUNC_SIGNAL_SUB_REMOVED    : String = 'signal_sub_removed'
-const STR_FUNC_SIGNAL_SUBS_SET       : String = 'signal_subs_set'
+const STR_FUNC_SIGNAL_HOOK_ADDED     : String = 'conductor_signal_hook_added'
+const STR_FUNC_SIGNAL_HOOKED         : String = 'conductor_signal_hooked'
+const STR_FUNC_SIGNAL_HOOK_REMOVED   : String = 'conductor_signal_hook_removed'
+const STR_FUNC_SIGNAL_HOOKS_SET      : String = 'conductor_signal_hooks_set'
+const STR_FUNC_SIGNAL_FILTER_ADDED   : String = 'conductor_signal_filter_added'
+const STR_FUNC_SIGNAL_FILTERED       : String = 'conductor_signal_filtered'
+const STR_FUNC_SIGNAL_FILTER_REMOVED : String = \
+	'conductor_signal_filter_removed'
+const STR_FUNC_SIGNAL_FILTERS_SET    : String = 'conductor_signal_filters_set'
+const STR_FUNC_SIGNAL_SUB_ADDED      : String = 'conductor_signal_sub_added'
+const STR_FUNC_SIGNAL_SUBBED         : String = 'conductor_signal_subbed'
+const STR_FUNC_SIGNAL_SUB_REMOVED    : String = 'conductor_signal_sub_removed'
+const STR_FUNC_SIGNAL_SUBS_SET       : String = 'conductor_signal_subs_set'
 const STR_FUNC_ADD_FILTER            : String = 'add_filter'
 const STR_FUNC_REMOVE_FILTER         : String = 'remove_filter'
 const STR_FUNC_ADD_HOOK              : String = 'add_hook'
@@ -517,7 +518,7 @@ func set_filters(
 			subs
 		)
 
-	signal_filters_set(_self.filters, old_filters)
+	conductor_signal_filters_set(_self.filters, old_filters)
 
 
 func get_filters() -> Dictionary:
@@ -583,7 +584,7 @@ func set_hooks(
 			subs
 		)
 
-	signal_hooks_set(_self.hooks, old_hooks)
+	conductor_signal_hooks_set(_self.hooks, old_hooks)
 
 
 func get_hooks() -> Dictionary:
@@ -648,7 +649,7 @@ func set_subs(
 			subs
 		)
 
-	signal_subs_set(_self.subs, old_subs)
+	conductor_signal_subs_set(_self.subs, old_subs)
 
 
 func get_subs() -> Dictionary:
@@ -683,7 +684,7 @@ func get_subs() -> Dictionary:
 # ******************
 
 
-func signal_hook_added(
+func conductor_signal_hook_added(
 		identifier : String,
 		value,
 		priority   : int) -> void:
@@ -698,7 +699,7 @@ func signal_hook_added(
 	emit_signal(STR_SIGNAL_HOOK_ADDED, identifier, value, priority, _self)
 
 
-func signal_hooked(
+func conductor_signal_hooked(
 		identifier : String,
 		args       : Array) -> void:
 
@@ -709,7 +710,7 @@ func signal_hooked(
 	emit_signal(STR_SIGNAL_HOOKED, identifier, args, _self)
 
 
-func signal_hook_removed(
+func conductor_signal_hook_removed(
 		identifier: String,
 		value,
 		priority: int) -> void:
@@ -724,7 +725,7 @@ func signal_hook_removed(
 	emit_signal(STR_SIGNAL_HOOK_REMOVED, identifier, value, priority, _self)
 
 
-func signal_hooks_set(
+func conductor_signal_hooks_set(
 		new_hooks: Dictionary,
 		old_hooks: Dictionary) -> void:
 
@@ -735,7 +736,7 @@ func signal_hooks_set(
 	emit_signal(STR_SIGNAL_HOOKS_SET, new_hooks, old_hooks, _self)
 
 
-func signal_filter_added(
+func conductor_signal_filter_added(
 		identifier : String,
 		value,
 		priority   : int) -> void:
@@ -750,7 +751,7 @@ func signal_filter_added(
 	emit_signal(STR_SIGNAL_FILTER_ADDED, identifier, value, priority, _self)
 
 
-func signal_filtered(
+func conductor_signal_filtered(
 		identifier : String,
 		input,
 		output,
@@ -766,7 +767,7 @@ func signal_filtered(
 	emit_signal(STR_SIGNAL_FILTERED, identifier, input, output, args, _self)
 
 
-func signal_filter_removed(
+func conductor_signal_filter_removed(
 		identifier : String,
 		value,
 		priority   : int) -> void:
@@ -781,7 +782,7 @@ func signal_filter_removed(
 	emit_signal(STR_SIGNAL_FILTER_REMOVED, identifier, value, priority, _self)
 
 
-func signal_filters_set(
+func conductor_signal_filters_set(
 		new_filters: Dictionary,
 		old_filters: Dictionary) -> void:
 
@@ -795,7 +796,7 @@ func signal_filters_set(
 	emit_signal(STR_SIGNAL_FILTERS_SET, new_filters, old_filters, _self)
 
 
-func signal_sub_added(
+func conductor_signal_sub_added(
 		identifier: String,
 		value) -> void:
 
@@ -809,7 +810,7 @@ func signal_sub_added(
 	emit_signal(STR_SIGNAL_SUB_ADDED, identifier, value, _self)
 
 
-func signal_subbed(
+func conductor_signal_subbed(
 		identifier : String,
 		args       : Array,
 		return_value) -> void:
@@ -824,7 +825,7 @@ func signal_subbed(
 	emit_signal(STR_SIGNAL_SUBBED, identifier, args, return_value, _self)
 
 
-func signal_sub_removed(
+func conductor_signal_sub_removed(
 		identifier: String,
 		value) -> void:
 
@@ -838,7 +839,7 @@ func signal_sub_removed(
 	emit_signal(STR_SIGNAL_SUB_REMOVED, identifier, value, _self)
 
 
-func signal_subs_set(
+func conductor_signal_subs_set(
 		new_subs: Dictionary,
 		old_subs: Dictionary) -> void:
 
@@ -907,7 +908,11 @@ func add_filter(
 
 	_add(_filters, new_filter_identifier, new_filter_value, priority_int)
 
-	signal_filter_added(new_filter_identifier, new_filter_value, priority_int)
+	conductor_signal_filter_added(
+		new_filter_identifier,
+		new_filter_value,
+		priority_int
+	)
 
 	if _hooks.has(STR_HOOK_POST_ADD_FILTER):
 		_hook(
@@ -973,7 +978,7 @@ func remove_filter(
 		priority_int
 	)
 
-	signal_filter_removed(
+	conductor_signal_filter_removed(
 		remove_filter_identifier,
 		remove_filter_value,
 		priority_int
@@ -1041,7 +1046,11 @@ func add_hook(
 
 	_add(_hooks, new_hook_identifier, new_hook_value, priority_int)
 
-	signal_hook_added(new_hook_identifier, new_hook_value, priority_int)
+	conductor_signal_hook_added(
+		new_hook_identifier,
+		new_hook_value,
+		priority_int
+	)
 
 	if _hooks.has(STR_HOOK_POST_ADD_HOOK):
 		_hook(
@@ -1107,7 +1116,7 @@ func remove_hook(
 		priority_int
 	)
 
-	signal_hook_removed(
+	conductor_signal_hook_removed(
 		remove_hook_identifier,
 		remove_hook_value,
 		priority_int
@@ -1168,7 +1177,7 @@ func add_sub(
 
 	_subs[sub_identifier] = sub_value
 
-	signal_sub_added(sub_identifier, sub_value)
+	conductor_signal_sub_added(sub_identifier, sub_value)
 
 	if _hooks.has(STR_HOOK_POST_ADD_SUB):
 		_hook(
@@ -1224,7 +1233,7 @@ func remove_sub(
 		)
 
 	var ret: bool = _subs.erase(sub_identifier)
-	signal_sub_removed(sub_identifier, sub_value)
+	conductor_signal_sub_removed(sub_identifier, sub_value)
 
 	if _hooks.has(STR_HOOK_POST_REMOVE_SUB):
 		_hook(
@@ -1337,7 +1346,7 @@ func sub(
 
 	var return_value = _do_action(action, args_arr, false)
 
-	signal_subbed(sub_identifier, args_arr, return_value)
+	conductor_signal_subbed(sub_identifier, args_arr, return_value)
 
 	if _hooks.has(STR_HOOK_POST_SUB):
 		_hook(
@@ -1420,16 +1429,22 @@ func __hook(
 	if _hooks.has(STR_HOOK_PRE_HOOK):
 		_act(_hooks, STR_HOOK_PRE_HOOK, [ hook_identifier, hook_args_arr ] )
 
-		signal_hooked(STR_HOOK_PRE_HOOK, [ hook_identifier, hook_args_arr ])
+		conductor_signal_hooked(
+			STR_HOOK_PRE_HOOK,
+			[ hook_identifier, hook_args_arr ]
+		)
 
 	_act(_hooks, hook_identifier, hook_args_arr)
 
-	signal_hooked(hook_identifier, hook_args_arr)
+	conductor_signal_hooked(hook_identifier, hook_args_arr)
 
 	if _hooks.has(STR_HOOK_POST_HOOK):
 		_act(_hooks, STR_HOOK_POST_HOOK, [ hook_identifier, hook_args_arr ] )
 
-		signal_hooked(STR_HOOK_POST_HOOK, [ hook_identifier, hook_args_arr ])
+		conductor_signal_hooked(
+			STR_HOOK_POST_HOOK,
+			[ hook_identifier, hook_args_arr ]
+		)
 
 
 func __filter(
@@ -1471,7 +1486,12 @@ func __filter(
 		filter_value
 	)
 
-	signal_filtered(filter_identifier, input, output, filter_args_arr)
+	conductor_signal_filtered(
+		filter_identifier,
+		input,
+		output,
+		filter_args_arr
+	)
 
 	if _hooks.has(STR_HOOK_POST_FILTER):
 		__hook(
