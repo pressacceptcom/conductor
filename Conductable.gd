@@ -252,7 +252,7 @@ const STR_FUNC__HOOK                 : String = '_hook'
 const STR_FUNC__ACT                  : String = '_act'
 const STR_FUNC__DO_ACTION            : String = '_do_action'
 
-const STR_MIXIN_IDENTIFIER: String = 'conductable'
+const STR_MIXIN_IDENTIFIER: String = 'conductor_conductable'
 
 const INT_DEFAULT_PRIORITY: int = 10
 

@@ -4030,7 +4030,7 @@ func sub_sub(
 	var _subs = _self.subs
 	var action = _subs[sub_identifier] if _subs.has(sub_identifier) else null
 
-	return _self.conductable._do_action(action, args_arr, false)
+	return _self.conductor_conductable._do_action(action, args_arr, false)
 
 
 func sub__add(
@@ -4192,22 +4192,22 @@ func test_substitutions() -> void:
 	conductable.__output('')
 	assert_has(flags, 'sub___output')
 
-	conductable.conductable.set_filters({})
+	conductable.conductor_conductable.set_filters({})
 	assert_has(flags, 'sub_set_filters')
 
-	conductable.conductable.get_filters()
+	conductable.conductor_conductable.get_filters()
 	assert_has(flags, 'sub_get_filters')
 
-	conductable.conductable.set_hooks({})
+	conductable.conductor_conductable.set_hooks({})
 	assert_has(flags, 'sub_set_hooks')
 
-	conductable.conductable.get_hooks()
+	conductable.conductor_conductable.get_hooks()
 	assert_has(flags, 'sub_get_hooks')
 
-	conductable.conductable.set_subs({})
+	conductable.conductor_conductable.set_subs({})
 	assert_has(flags, 'sub_set_subs')
 
-	conductable.conductable.get_subs()
+	conductable.conductor_conductable.get_subs()
 	assert_has(flags, 'sub_get_subs')
 
 	conductable.conductor_signal_hook_added('', null, 0)
@@ -4273,29 +4273,29 @@ func test_substitutions() -> void:
 	conductable.sub('')
 	assert_has(flags, 'sub_sub')
 
-	conductable.conductable._add({}, '', null)
+	conductable.conductor_conductable._add({}, '', null)
 	assert_has(flags, 'sub__add')
 
-	conductable.conductable._remove({}, '', null)
+	conductable.conductor_conductable._remove({}, '', null)
 	assert_has(flags, 'sub__remove')
 
-	conductable.conductable.__hook('')
+	conductable.conductor_conductable.__hook('')
 	assert_has(flags, 'sub___hook')
 
-	conductable.conductable.__filter('', null)
+	conductable.conductor_conductable.__filter('', null)
 	assert_has(flags, 'sub___filter')
 
-	conductable.conductable._filter('', null)
+	conductable.conductor_conductable._filter('', null)
 	assert_has(flags, 'sub__filter')
 
-	conductable.conductable._hook('')
+	conductable.conductor_conductable._hook('')
 	assert_has(flags, 'sub__hook')
 
-	conductable.conductable._act({}, '')
+	conductable.conductor_conductable._act({}, '')
 	assert_has(flags, 'sub__act')
 	
 	reset_flags()
 
-	conductable.conductable._do_action('')
+	conductable.conductor_conductable._do_action('')
 	assert_has(flags, 'sub__do_action')
 
